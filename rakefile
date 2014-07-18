@@ -1,0 +1,15 @@
+require 'nokogiri'
+require 'open-uri'
+require 'final.rb'
+
+task :update
+      mystocks.scrape
+      mystocks.upordown
+      #mystocks.textifup #needs to be added
+end
+
+task :checkfordrop
+      mystocks.trigger_textif
+end
+      
+
