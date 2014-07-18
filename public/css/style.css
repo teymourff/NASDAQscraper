@@ -1,0 +1,10 @@
+h3 {
+  font-style: italic;
+}
+#companysymbol {
+  border-style: groove;
+  border-width: 5px;
+  border-color: #999999;
+  width:20%;
+  padding: 10px;
+}
