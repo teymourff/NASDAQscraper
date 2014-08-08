@@ -23,7 +23,8 @@ post '/' do
     name14 = params[:companysymbol14]
     name15 = params[:companysymbol15]
     names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12, name13, name14, name15] 
-    @mystocks = Stocks.new(names) #feeds in name1 as an array to final.rb (new runs initialize)
+    usernumber = params[:usernumber]
+    @mystocks = Stocks.new(names, usernumber) #feeds in name1 as an array to final.rb (new runs initialize)
     @mystocks.scrape
     @mystocks.diagnostic
     erb :index #display original page again

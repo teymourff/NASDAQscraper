@@ -1,22 +1,38 @@
 require 'open-uri'
+# => FEATURES <= 
+# have textboxes generate as you type (maybe start with 3 or so)
+# add input for what time you should receive updates
+# add support for full company names
+
+#git push heroku master  =>  updates the page on heroku
+#shotgun app.rb  =>  to create server on the computer
+
+# https://github.com/flatiron-school-students/hs-summer-sinatra-refactor-summer14-001
+# https://github.com/flatiron-school-students/heroku_deploy-summer14-001
+# https://devcenter.heroku.com/articles/scheduler
+# http://limitless-escarpment-7709.herokuapp.com/
+# https://scheduler.heroku.com/dashboard
+# http://stocks.tradingcharts.com/  =>  good for adding support for full company names
 
 
 class Stocks
 
-  attr_accessor :companynames, :dv, :percentage, :pcp, :webpagefiles
+  attr_accessor :companynames, :dv, :percentage, :pcp, :webpagefiles #makes reader and writer methods
 
-  def initialize(companynames)
+  def initialize(companynames, usernumber)
     @companynames = companynames
     @companynames.reject! { |c| c.empty? } #looks for empty elements in the array and deletes them
-    @usernumber = 19177542295
-    @substantialdrop = 0.00000000000000000000002
+    @usernumber = usernumber 
+    @substantialdrop = 0.02
     @updateinterval = 1 * 10
     @lastupdate = Time.now - @updateinterval
     @stockpages = []
     @webpagefiles = []
+    @fdv = []
     @dv = []
     @percentage = []
     @pcp = []
+    @up = false
     
 
     repeat = 0
@@ -36,33 +52,39 @@ class Stocks
       @webpagefiles[repeat] = Nokogiri::HTML(html)
       if @webpagefiles[repeat].css("div#content .quotebar-wrap .header-wrap .quote-wrap .quote-data-wrap #qwidget-quote-wrap #qwidget_quote #qwidget_lastsale").children.last.nil?
         @companynames.delete_at(repeat) # if the page is invalid, the item is removed from the string
-        repeat -= 1 #when you delete the element in the array, everything goes back so you have to go back one too
+        repeat -= 1 #when you delete the element in the array, everything moves back so you have to go move back one as well
       else
         #dollar value:
         @dv[repeat] = @webpagefiles[repeat].css("div#content .quotebar-wrap .header-wrap .quote-wrap .quote-data-wrap #qwidget-quote-wrap #qwidget_quote #qwidget_lastsale").children.last.text.gsub("$", "").to_f
+        
         #percentage up or down:
         @percentage[repeat] = @webpagefiles[repeat].css("div#content .quotebar-wrap .header-wrap .quote-wrap .quote-data-wrap #qwidget-quote-wrap #qwidget_quote #qwidget_percent").children.last.text.to_f
+        
         #previous closing price:
         @pcp[repeat] = @webpagefiles[repeat].css("#quotes_content_left__PreviousClose").children.last.text.to_f
-        if Time.now - @lastupdate >= @updateinterval #checks if its been an hour fdv was updated
-          @fdv = @dv
-          @lastupdate = Time.now
-        end
-      end
+        
+        writefdv(repeat, @dv[repeat])
 
+
+
+
+      end #else end
       repeat += 1
     end #while loop end
-  end #scrape
+  end #scrape end
 
-  # def upordown #calculates whether a stock has gone up or since the previous close; useful for daily updates
-  #   change = (1 - (@pcp.to_i / @dv.to_i))
-  #   @up = false
-  #   if change > 0
-  #     @up = true
-  #   else change < 0
-  #     @up = false
-  #   end
-  # end #upordown end
+  def writefdv(repeat, dv)
+    @fdv[repeat] = dv #fdv = first dollar value, will be compared to dollar vallue later to see the change
+  end
+
+  def upordown #calculates whether a stock has gone up or since the previous close; useful for daily updates
+    change = (@pcp.to_i / @dv.to_i)
+    if change > 1
+      @up = false
+    else change < 1
+      @up = true
+    end
+  end #upordown end
 
   def trigger_textif
     repeat = 0
@@ -72,7 +94,7 @@ class Stocks
         textifdown(@companynames[repeat], percentdrop)
       end
     end #while loop end
-  end #trigger_textif 
+  end #trigger_textif end
 
 
   # def textifup(companydown, percentdrop)
@@ -102,7 +124,7 @@ class Stocks
       @client = Twilio::REST::Client.new account_sid, auth_token
 
       companynames.each_index do |i|
-        textmessage = @companynames[i] + " dv:" + @dv[i].to_s + " percentage:" + @percentage[i].to_s + " Pcp:" + @pcp[i].to_s
+        textmessage = @companynames[i] + "\nDollar Value:" + @dv[i].to_s + "\nPercentage:" + @percentage[i].to_s + "\nPrevious Closing Price:" + @pcp[i].to_s
 
         @client.account.messages.create(
           :from => '+18152642023',
@@ -113,9 +135,4 @@ class Stocks
   end
 
 end #class end
-
-# mystocks = Stocks.new
-
-
-
 

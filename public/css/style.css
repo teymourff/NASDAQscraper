@@ -1,10 +1,41 @@
 h3 {
   font-style: italic;
+  padding-left: 0px;
+  margin-left: 10px;
 }
-#companysymbol {
+body {
+  background-color: #999999;
+  margin: 0px;
+}
+#inputbox {
   border-style: groove;
   border-width: 5px;
   border-color: #999999;
   width:20%;
   padding: 10px;
+  margin-left: 5px;
+}
+#headers {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #666666;
+  padding: 10px;
+  background-color: #666666;
+  padding: 0px;
+  padding-left: 20px;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  text-decoration: underline;
+}
+#textbox {
+  background-color: #666666;
+  border-color: #000000;
+  padding-left: 3px;
+}
+#button {
+  background-color: #666666;
+  border-color: #000000;
+  margin-top: 5px;
+  margin-bottom: -10px;
 }

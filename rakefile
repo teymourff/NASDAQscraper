@@ -4,12 +4,12 @@ require_relative './lib/final.rb'
 
 task :update do
       mystocks.scrape
-      mystocks.upordown
-      #mystocks.textifup #needs to be added
+      # mystocks.upordown
+      # #mystocks.textifup #needs to be added
 end
 
-task :checkfordrop do
-      mystocks.trigger_textif
-end
+# task :checkfordrop do
+#       mystocks.trigger_textif
+# end
       
 
