@@ -64,6 +64,7 @@ class Stocks
         @pcp[repeat] = @webpagefiles[repeat].css("#quotes_content_left__PreviousClose").children.last.text.to_f
         
         writefdv(repeat, @dv[repeat])
+        trigger_textif
 
 
 
@@ -88,10 +89,14 @@ class Stocks
 
   def trigger_textif
     repeat = 0
-    while repeat < @dv.size #gets second value
-      if (1 - (@dv[repeat] / @fdv[repeat])) > @substantialdrop
-        percentdrop = 1 - (@dv[repeat] / @fdv[repeat])
+    while repeat < @dv.size
+      newdv = @dv[repeat] #needed to be renamed/redeclared otherwise the math for percentdrop didn't work
+      newfdv = @fdv[repeat] #needed to be renamed/redeclared otherwise the math for percentdrop didn't work
+      percentdrop = (1 - (newdv.to_i / newfdv.to_i))
+      if percentdrop >= @substantialdrop
         textifdown(@companynames[repeat], percentdrop)
+        repeat += 1
+      else
       end
     end #while loop end
   end #trigger_textif end
@@ -99,14 +104,14 @@ class Stocks
 
   # def textifup(companydown, percentdrop)
 
-  def textifdown #texts user if their stocks are dropping substantially
+  def textifdown(companydown, percentdrop) #texts user if their stocks are dropping substantially
         account_sid = 'ACe330ba04d082392df4cb3511dcb72cec'
         auth_token = '2008ea097713e401a16c54029058da82'
 
         # set up a client to talk to the Twilio REST API
         @client = Twilio::REST::Client.new account_sid, auth_token
         
-        textmessage = "Alert:" + "\n" + companydown.upcase + " is down " + percentdrop + "% in the last hour."
+        textmessage = "Alert:" + "\n" + companydown.upcase.to_s + " is down " + percentdrop.to_s + "% in the last hour."
 
         @client.account.messages.create(
           :from => '+18152642023',
