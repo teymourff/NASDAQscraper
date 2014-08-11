@@ -2,14 +2,13 @@ require 'nokogiri'
 require 'open-uri'
 require_relative './lib/final.rb'
 
-task :update do
-      mystocks.scrape
-      # mystocks.upordown
-      # #mystocks.textifup #needs to be added
+task :update do #Every 5 minutes
+  mystocks.scrape
 end
 
-# task :checkfordrop do
-#       mystocks.trigger_textif
-# end
+task :text do #Every hour
+  mystocks.trigger_textif
+  mystocks.writefdv
+end
       
 

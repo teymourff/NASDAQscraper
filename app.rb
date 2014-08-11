@@ -26,6 +26,7 @@ post '/' do
     usernumber = params[:usernumber]
     @mystocks = Stocks.new(names, usernumber) #feeds in name1 as an array to final.rb (new runs initialize)
     @mystocks.scrape
-    @mystocks.diagnostic
+    @mystocks.writefdv
+    # @mystocks.diagnostic
     erb :index #display original page again
 end
