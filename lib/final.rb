@@ -122,13 +122,15 @@ class Stocks
 
       # companynames.each_index do |i|
       #   textmessage = @companynames[i] + "\nDollar Value:" + @dv[i].to_s + "\nPercentage:" + @percentage[i].to_s + "\nPrevious Closing Price:" + @pcp[i].to_s + @fdv[0].to_s
-        textmessage = "heroku seems to be working"
+
+        textmessage = "diagnostic has been run"
         @client.account.messages.create(
           :from => '+18152642023',
           # :to => @usernumber,
           :to => '+19177542295',
           :body => textmessage
           )
+    # end #do loop end
   end #def end
 
 end #class end
