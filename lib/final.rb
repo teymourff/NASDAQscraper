@@ -120,12 +120,13 @@ class Stocks
       # set up a client to talk to the Twilio REST API
       @client = Twilio::REST::Client.new account_sid, auth_token
 
-      companynames.each_index do |i|
-        textmessage = @companynames[i] + "\nDollar Value:" + @dv[i].to_s + "\nPercentage:" + @percentage[i].to_s + "\nPrevious Closing Price:" + @pcp[i].to_s + @fdv[0].to_s
-
+      # companynames.each_index do |i|
+      #   textmessage = @companynames[i] + "\nDollar Value:" + @dv[i].to_s + "\nPercentage:" + @percentage[i].to_s + "\nPrevious Closing Price:" + @pcp[i].to_s + @fdv[0].to_s
+        textmessage = "heroku seems to be working"
         @client.account.messages.create(
           :from => '+18152642023',
-          :to => @usernumber,
+          # :to => @usernumber,
+          :to => '+19177542295'
           :body => textmessage
           )
       end

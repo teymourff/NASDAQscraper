@@ -2,13 +2,17 @@ require 'nokogiri'
 require 'open-uri'
 require_relative './lib/final.rb'
 
-task :update do #Every 5 minutes
+task :update do #Every 10 minutes
   mystocks.scrape
 end
 
 task :text do #Every hour
   mystocks.trigger_textif
   mystocks.writefdv
+end
+
+task :test do #test heroku scheduling functionality
+  mystocks.diagnostic
 end
       
 
