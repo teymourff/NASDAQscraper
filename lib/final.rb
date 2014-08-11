@@ -126,11 +126,10 @@ class Stocks
         @client.account.messages.create(
           :from => '+18152642023',
           # :to => @usernumber,
-          :to => '+19177542295'
+          :to => '+19177542295',
           :body => textmessage
           )
-      end
-  end
+  end #def end
 
 end #class end
 
