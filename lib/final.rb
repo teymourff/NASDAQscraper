@@ -1,30 +1,14 @@
 require 'open-uri'
-# => FEATURES <= 
-# DATABASING FOR MULTIPLE USERS
-# have textboxes generate as you type (maybe start with 3 or so)
-# add input for what time you should receive updates
-# add support for full company names
-
-#git push heroku master  =>  updates the page on heroku
-#shotgun app.rb  =>  to create server on the computer
-
-# https://github.com/flatiron-school-students/hs-summer-sinatra-refactor-summer14-001
-# https://github.com/flatiron-school-students/heroku_deploy-summer14-001
-# https://devcenter.heroku.com/articles/scheduler
-# http://limitless-escarpment-7709.herokuapp.com/
-# https://scheduler.heroku.com/dashboard
-# http://stocks.tradingcharts.com/  =>  good for adding support for full company names
-
 
 class Stocks
 
   attr_accessor :companynames, :dv, :percentage, :pcp, :webpagefiles #makes reader and writer methods
 
-  def initialize(companynames, usernumber)
+  def initialize(companynames, usernumber, substantialdrop)
     @companynames = companynames
     @companynames.reject! { |c| c.empty? } #looks for empty elements in the array and deletes them
     @usernumber = usernumber 
-    @substantialdrop = 0.02
+    @substantialdrop = substantialdrop
     @updateinterval = 1 * 10
     @lastupdate = Time.now - @updateinterval
     @stockpages = []
@@ -123,7 +107,7 @@ class Stocks
       # companynames.each_index do |i|
       #   textmessage = @companynames[i] + "\nDollar Value:" + @dv[i].to_s + "\nPercentage:" + @percentage[i].to_s + "\nPrevious Closing Price:" + @pcp[i].to_s + @fdv[0].to_s
 
-        textmessage = "diagnostic has been run"
+        textmessage = "diagnostic has been run "
         @client.account.messages.create(
           :from => '+18152642023',
           # :to => @usernumber,

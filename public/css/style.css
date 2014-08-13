@@ -39,3 +39,16 @@ body {
   margin-top: 5px;
   margin-bottom: -10px;
 }
+.phonenumber {
+  margin: 0px;
+  float: left;
+}
+.subdrop {
+  margin: 0px;
+  float: right;
+  text-align:center; 
+  color: #999999; 
+  background-color: #666666;
+  border-color: #000000;
+  padding-left: 3px;
+}

@@ -24,7 +24,8 @@ post '/' do
     name15 = params[:companysymbol15]
     names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12, name13, name14, name15] 
     usernumber = params[:usernumber]
-    @mystocks = Stocks.new(names, usernumber) #feeds in name1 as an array to final.rb (new runs initialize)
+    substantialdrop = params[:subdrop].gsub("%", "").to_f
+    @mystocks = Stocks.new(names, usernumber, substantialdrop) #feeds in name1 as an array to final.rb (new runs initialize)
     @mystocks.scrape
     @mystocks.writefdv
     @mystocks.diagnostic

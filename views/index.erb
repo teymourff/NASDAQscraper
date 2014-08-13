@@ -27,17 +27,25 @@
       Company Symbol: <input type="text" id="textbox" name="companysymbol13"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol14"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol15"><br>
-      <center>
-      Your Phone Number: <input type="text" id="textbox" name="usernumber"><br>
-      <center>
+      
+      <p style="margin-top:5px;margin-bottom:0px;">&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substantial Drop:</p>
+      <input type="text" id="textbox" name="usernumber" class="phonenumber">
+      <input type="text" id="textbox" name="subdrop" value="2%" class="subdrop" onblur="if(this.value=='')this.value='2%';" onfocus="if(this.value=='2%')this.value='';"/><br> <!-- all of this clears the textbox on-click -->
       <center><input type="submit" value="Submit" id="button"></center>
     </form>
   </div>
 
 
-<script>
 
-</script>
+
+
+<!-- <input type='button' onclick='myFunction()' value='Alert'/> -->
+ <script>
+// function myFunction(){
+// alert("I am an alert box!");
+// }
+ </script>
+
   
 </body>
 </html>
