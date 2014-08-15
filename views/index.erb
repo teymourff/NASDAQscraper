@@ -22,29 +22,41 @@
       Company Symbol: <input type="text" id="textbox" name="companysymbol8"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol9"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol10"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol11"><br>
+      <!-- Company Symbol: <input type="text" id="textbox" name="companysymbol11"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol12"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol13"><br>
       Company Symbol: <input type="text" id="textbox" name="companysymbol14"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol15"><br>
+      Company Symbol: <input type="text" id="textbox" name="companysymbol15"><br> -->
       
-      <p style="margin-top:5px;margin-bottom:0px;">&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substantial Drop:</p>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substantial Drop:</p>
       <input type="text" id="textbox" name="usernumber" class="phonenumber">
-      <input type="text" id="textbox" name="subdrop" value="2%" class="subdrop" onblur="if(this.value=='')this.value='2%';" onfocus="if(this.value=='2%')this.value='';"/><br> <!-- all of this clears the textbox on-click -->
+      <input type="text" id="textbox" name="subdrop" value="(percentage)" class="subdrop" onblur="if(this.value=='')this.value='(percentage)';" onfocus="if(this.value=='(percentage)')this.value='';"/><br> <!-- all of this clears the textbox on-click -->
+      <center><p><input type="checkbox" id="agreeCheckbox" name="agreeCheckbox" value="agreeCheckbox" onchange="toggleLink(this);">Recieve text updates every:</p></center>
+      
+      <div id="recieveUpdates?" style="display:none;">
+        <center>
+          <input type="radio" name="time" value="Hour" id="radio">Hour
+          <input type="radio" name="time" value="Day" id="radio">Day
+        </center>
+      </div>
+
       <center><input type="submit" value="Submit" id="button"></center>
+
     </form>
+
   </div>
 
+  <script type="text/javascript">
+      function toggleLink(checkBox) {
+        var time = document.getElementById("recieveUpdates?");
 
+        if (checkBox.checked)
+            time.style.display = "inline";
+        else
+            time.style.display = "none";
+      }
+  </script>
 
-
-
-<!-- <input type='button' onclick='myFunction()' value='Alert'/> -->
- <script>
-// function myFunction(){
-// alert("I am an alert box!");
-// }
- </script>
 
   
 </body>

@@ -17,17 +17,26 @@ post '/' do
     name8 = params[:companysymbol8]
     name9 = params[:companysymbol9]
     name10 = params[:companysymbol10]
-    name11 = params[:companysymbol11]
-    name12 = params[:companysymbol12]
-    name13 = params[:companysymbol13]
-    name14 = params[:companysymbol14]
-    name15 = params[:companysymbol15]
-    names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10, name11, name12, name13, name14, name15] 
+    # name11 = params[:companysymbol11]
+    # name12 = params[:companysymbol12]
+    # name13 = params[:companysymbol13]
+    # name14 = params[:companysymbol14]
+    # name15 = params[:companysymbol15]
+    names = [name1, name2, name3, name4, name5, name6, name7, name8, name9, name10]#, name11, name12, name13, name14, name15] 
     usernumber = params[:usernumber]
-    substantialdrop = params[:subdrop].gsub("%", "").to_f
+    
+    substantialdrop = params[:subdrop].chomp("%")
+    if substantialdrop == "(percentage)"
+        substantialdrop = 0.02
+    elsif substantialdrop.to_f > 0
+        substantialdrop = substantialdrop.to_f  / 100
+    else
+        #invalid input (see readme)
+    end
+    
     @mystocks = Stocks.new(names, usernumber, substantialdrop) #feeds in name1 as an array to final.rb (new runs initialize)
-    @mystocks.scrape
-    @mystocks.writefdv
-    @mystocks.diagnostic
+    #@mystocks.scrape
+    #@mystocks.writefdv
+    #@mystocks.diagnostic
     erb :index #display original page again
 end

@@ -7,6 +7,10 @@ body {
   background-color: #999999;
   margin: 0px;
 }
+p {
+   margin-top:5px;
+   margin-bottom:0px;
+}
 #inputbox {
   border-style: groove;
   border-width: 5px;
@@ -51,4 +55,11 @@ body {
   background-color: #666666;
   border-color: #000000;
   padding-left: 3px;
+}
+#radio {
+  margin-right: 5px;
+}
+#checkbox {
+  margin-top: 8px;
+  margin-right: 5px;
 }
