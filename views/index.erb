@@ -6,32 +6,38 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <div id="headers">
+  <div id="topbar">
     <h1>NASDAQ Scraper</h1>
+    <h3>Recieve text notifications regarding your companies</h3>
   </div>
-    <h3>Enter your company symbols below to recieve text notifications on their status.</h3>
   <div id="inputbox">
-    <form action = "/" method = "POST"> <!-- sends post request to app.rb so they can be passed to final.rb -->
-      Company Symbol: <input type="text" id="textbox" name="companysymbol1"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol2"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol3"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol4"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol5"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol6"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol7"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol8"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol9"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol10"><br>
-      <!-- Company Symbol: <input type="text" id="textbox" name="companysymbol11"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol12"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol13"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol14"><br>
-      Company Symbol: <input type="text" id="textbox" name="companysymbol15"><br> -->
+    <form action = "/stocks" method = "POST"> <!-- sends post request to app.rb so they can be passed to final.rb -->
+      Company Symbol: <input type="text" class="textbox" name="companysymbol1"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol2"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol3"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol4"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol5"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol6"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol7"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol8"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol9"><br>
+      Company Symbol: <input type="text" class="textbox" name="companysymbol10"><br>
+      <div style="display:none;">Company Symbol :<input type="text" class="textbox" id="hidden1" name="companysymbol11"><br></div>
+      <div style="display:none;">Company Symbol: <input type="text" class="textbox" id="hidden2" name="companysymbol12"><br></div>
+      <div style="display:none;">Company Symbol: <input type="text" class="textbox" id="hidden3" name="companysymbol13"><br></div>
+      <div style="display:none;">Company Symbol: <input type="text" class="textbox" id="hidden4" name="companysymbol14"><br></div>
+      <div style="display:none;">Company Symbol: <input type="text" class="textbox" id="hidden5" name="companysymbol15"><br></div> <!-- Add if typed in function that would trigger "Add More..."-->
       
-      <p>&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Substantial Drop:</p>
-      <input type="text" id="textbox" name="usernumber" class="phonenumber">
-      <input type="text" id="textbox" name="subdrop" value="(percentage)" class="subdrop" onblur="if(this.value=='')this.value='(percentage)';" onfocus="if(this.value=='(percentage)')this.value='';"/><br> <!-- all of this clears the textbox on-click -->
-      <center><p><input type="checkbox" id="agreeCheckbox" name="agreeCheckbox" value="agreeCheckbox" onchange="toggleLink(this);">Recieve text updates every:</p></center>
+      <center><p style="display:none;" id="addmore" on-click="showBoxes(this)">Add More...</p></center> 
+      
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;Phone Number: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="Substantial drop for a stock in one hour. You will be alerted by text if this happens.">Substantial Drop:</span></p>
+      <input type="text" class="textbox" name="usernumber" class="phonenumber">
+      
+      <span title="Substantial drop for a stock in one hour. You will be alerted by text if this happens.">
+        <input type="text" id="textbox" name="subdrop" value="2%" class="subdrop" onblur="if(this.value=='')this.value='2%';" onfocus="if(this.value=='2%')this.value='';"/>
+      </span><br> <!-- all of this clears the textbox on-click, and opens a popup description on hover-->
+
+      <center><span title="Recieve texts with your stocks' current prices, and if they have been going up or down."><p><input type="checkbox" id="showCheckbox" name="showCheckbox" value="showCheckbox" onclick="showTimes(this)">Recieve text status updates every:</p></span></center>
       
       <div id="recieveUpdates?" style="display:none;">
         <center>
@@ -47,14 +53,37 @@
   </div>
 
   <script type="text/javascript">
-      function toggleLink(checkBox) {
+      // document.getElementById('addmore').onchange = function()
+      function showTimes(checkBox) {
         var time = document.getElementById("recieveUpdates?");
 
-        if (checkBox.checked)
-            time.style.display = "inline";
+        if (checkBox.checked) 
+          time.style.display = "inline";
         else
-            time.style.display = "none";
-      }
+          time.style.display = "none";
+        }
+      
+      // function showAddMore(textInLastBox)
+        // var addMore = document.getElementById("addmore")
+        // if (_________) {
+        //     addMore.style.display = "inline";
+        // else
+        //     addMore.style.display = "none";
+        // }
+      // }
+      // function showBoxes(click) {
+      //   var checkBoxes = new Array(document.getElementById("hidden1"), document.getElementById("hidden2"), document.getElementById("hidden3"), document.getElementById("hidden4"), document.getElementById("hidden5"));
+      //     //must be a better way to do this?
+      //   var repeat = 0;
+      //   while repeat < checkBoxes.length {
+      //     if (document.getElementById('button').onclick) {
+      //         checkBoxes[repeat].style.display = "inline";
+      //     else
+      //         checkBoxes[repeat].style.display = "none";
+      //     } //if statement end
+      //   repeat += 1;
+      //   } //while loop close
+      // } // function close
   </script>
 
 
